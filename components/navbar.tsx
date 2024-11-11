@@ -1,0 +1,182 @@
+"use client"
+
+import { type SVGProps } from "react"
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
+import { PiShareNetworkLight } from "react-icons/pi";
+import { Button } from "@/components/ui/button"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+import Link from "next/link"
+import { useTheme } from "next-themes"
+
+function MenuIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="4" x2="20" y1="12" y2="12" />
+      <line x1="4" x2="20" y1="6" y2="6" />
+      <line x1="4" x2="20" y1="18" y2="18" />
+    </svg>
+  )
+}
+
+function SunIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2" />
+      <path d="M12 20v2" />
+      <path d="m4.93 4.93 1.41 1.41" />
+      <path d="m17.66 17.66 1.41 1.41" />
+      <path d="M2 12h2" />
+      <path d="M20 12h2" />
+      <path d="m6.34 17.66-1.41 1.41" />
+      <path d="m19.07 4.93-1.41 1.41" />
+    </svg>
+  )
+}
+
+function MoonIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+    </svg>
+  )
+}
+
+export default function Navbar() {
+  const { setTheme, theme } = useTheme()
+
+  return (
+    <TooltipProvider>
+      <header className="fixed top-0 left-0 w-full h-14 flex items-center bg-white dark:bg-black px-4 md:px-6 backdrop-blur z-50">
+        <Sheet>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <SheetTrigger asChild>
+                <Button variant="outline" size="icon" className="lg:hidden">
+                  <MenuIcon className="h-6 w-6" />
+                  <span className="sr-only">Menu de Navegación</span>
+                </Button>
+              </SheetTrigger>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Menu de Navegación</p>
+            </TooltipContent>
+          </Tooltip>
+          <SheetContent side="left">
+            <Link href="#" className="mr-6 flex items-center" prefetch={false}>
+              <PiShareNetworkLight className="h-8 w-8" />
+              <span className="ml-2 text-lg font-mono font-medium">Coloquio Redes</span>
+            </Link>
+            <nav className="mt-6">
+              <ul className="space-y-4">
+                <li>
+                  <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
+                    Services
+                  </Link>
+                </li>
+                <li>
+                  <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </SheetContent>
+        </Sheet>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link href="#" className="mr-6 hidden items-center lg:flex font-mono text-lg font-medium"  prefetch={false}>
+              <PiShareNetworkLight className="h-8 w-8" />
+              <span className="ml-2 text-xl">SetIA</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Trabajo Práctico 4 Coloquio Redes Y Comunicaciones</p>
+          </TooltipContent>
+        </Tooltip>
+        <nav className="ml-auto hidden lg:flex gap-6">
+          <Link
+            href="#"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+            prefetch={false}
+          >
+            About
+          </Link>
+          <Link
+            href="#"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+            prefetch={false}
+          >
+            Services
+          </Link>
+          <Link
+            href="#"
+            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+            prefetch={false}
+          >
+            Contact
+          </Link>
+        </nav>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="ml-4"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {theme === "dark" ? <SunIcon className="h-6 w-6" /> : <MoonIcon className="h-6 w-6" />}
+              <span className="sr-only">Cambiar de Tema</span>
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Cambiar de Tema</p>
+          </TooltipContent>
+        </Tooltip>
+      </header>
+    </TooltipProvider>
+  )
+}
