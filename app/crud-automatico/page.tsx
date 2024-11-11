@@ -240,8 +240,7 @@ const CrearPrompt = () => {
         </div>
 
       <div className="w-full sm:max-w-3xl mx-auto items-center">
-        <div className="flex flex-col w-full h-screen max-w-[3000px] overflow-x-auto items-center justify-center gap-1 bg-white dark:bg-gray-900"
-          style={{ maxHeight: "calc(100vh - 175px)", whiteSpace: "nowrap"}}>
+        <div className="flex flex-col w-full h-screen max-w-[3000px] overflow-x-auto items-center justify-center gap-1 bg-white dark:bg-gray-900">
           <div id="chat" className="overflow-y-auto h-auto bg-white dark:bg-gray-900 w-full flex-1">
             {sheetCargado && datosSheet.length > 0 && (
               <TableComponent data={datosSheet} />
