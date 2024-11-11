@@ -16,17 +16,17 @@ export default function Home() {
 
         {!user ? (
           <a
-            className="rounded-full bg-blue-600 text-white px-6 py-3 text-lg font-semibold hover:bg-blue-700 transition-colors"
+            className="rounded-full button_gradient transition-colors"
             href="/api/auth/login"
           >
             Login
           </a>
         ) : (
           <div className="flex flex-col items-center gap-4">
-            <img src={user.picture ?? ""} className='w-24 h-24'  alt="" />
+            <img src={user.picture ?? ""} className='w-24 h-24'  alt=""/>
             <p className="text-xl font-semibold text-gray-800 dark:text-gray-200">Bienvenido, {user.name}!</p>
             <a
-              className="rounded-full bg-red-600 text-white px-6 py-3 text-lg font-semibold hover:bg-red-700 transition-colors"
+              className="rounded-full button_gradient transition-colors"
               href="/api/auth/logout"
             >
               Logout
