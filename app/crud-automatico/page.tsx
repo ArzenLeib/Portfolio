@@ -190,7 +190,7 @@ const CrudAuto = () => {
                   </TooltipContent>
                 </Tooltip>
                 <Select onValueChange={seleccionDeHoja}>
-                  <SelectTrigger className="w-36">
+                  <SelectTrigger className="w-44">
                     <SelectValue placeholder="Selecciona una Hoja" />
                   </SelectTrigger>
                   <SelectContent>

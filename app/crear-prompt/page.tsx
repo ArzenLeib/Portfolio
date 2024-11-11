@@ -225,7 +225,7 @@ const CrearPrompt = () => {
           <div className= {`align-middle w-full mx-auto flex items-center justify-center gap-1 p-4 h-auto ${!sheetCargado ? 'hidden' : ''}`}>
             <Label className="mr-2">Seleccionar una Hoja:</Label>
             <Select onValueChange={seleccionDeHoja}>
-              <SelectTrigger className="w-fit">
+              <SelectTrigger className="w-44">
                 <SelectValue placeholder="Selecciona una Hoja" />
               </SelectTrigger>
               <SelectContent>
