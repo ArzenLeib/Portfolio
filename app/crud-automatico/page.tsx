@@ -36,33 +36,35 @@ const TableComponent = <T extends DataItem>({ data }: { data: T[] }) => {
   if (!data || data.length === 0) return null;
 
   const headers = [...Object.keys(data[0]), "Opciones"];
-  const [titleRow, ...dataRows] = data;
+const [titleRow, ...dataRows] = data;
 
-  return (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          {headers.map((header, index) => (
-            <TableHead key={index}>{header}</TableHead>
+return (
+  <Table>
+    <TableHeader>
+      <TableRow>
+        {headers.map((header, index) => (
+          <TableHead key={index}>
+            {header === "Opciones" ? header : titleRow[header]}
+          </TableHead>
+        ))}
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {dataRows.map((row, rowIndex) => (
+        <TableRow key={rowIndex}>
+          {headers.map((header, cellIndex) => (
+            <TableCell key={cellIndex}>
+              {header === "Opciones" ? (
+                <Button variant="outline" size="sm">Editar</Button>
+              ) : (
+                String(row[header])
+              )}
+            </TableCell>
           ))}
         </TableRow>
-      </TableHeader>
-      <TableBody>
-        {dataRows.map((row, rowIndex) => (
-          <TableRow key={rowIndex}>
-            {headers.map((header, cellIndex) => (
-              <TableCell key={cellIndex}>
-                {header === "Opciones" ? (
-                  <Button variant="outline" size="sm">Editar</Button>
-                ) : (
-                  String(row[header])
-                )}
-              </TableCell>
-            ))}
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+      ))}
+    </TableBody>
+  </Table>
   );
 };
 
@@ -230,6 +232,9 @@ const CrudAuto = () => {
                 </div>
               </>
             )}
+          </div>
+          <div className="mt-4 flex justify-end">
+            <Button variant="outline">Agregar</Button>
           </div>
         </div>
       </div>
