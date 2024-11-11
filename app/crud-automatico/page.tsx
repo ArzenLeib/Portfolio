@@ -182,7 +182,7 @@ const CrearPrompt = () => {
                   </TooltipContent>
                 </Tooltip>
                 <Select onValueChange={seleccionDeHoja}>
-                  <SelectTrigger className="w-1">
+                  <SelectTrigger className="w-28">
                     <SelectValue placeholder="Selecciona una Hoja" />
                   </SelectTrigger>
                   <SelectContent>
