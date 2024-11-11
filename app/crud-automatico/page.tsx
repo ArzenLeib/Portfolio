@@ -160,12 +160,11 @@ const CrearPrompt = () => {
         <div className='sm:ml-5 sm:flex flex-col hidden '>
           <h1 className='head_text text-left mb-2'> 
             <span className='head_gradient'>
-            Crea tu Consulta
+            CRUD
             </span>  
           </h1>
           <p className='p_text text-gray-600 dark:text-gray-300 bg'> 
-            ¡Modifica tu Set de Datos de Google Sheets en un abrir y cerrar de ojos!
-            Google Gemini se encargará de crear, modificar, eliminar y filtrar por vos.
+            ¡Usa Google Sheets como tu propia base de datos!
           </p>
         </div>
 
@@ -208,6 +207,20 @@ const CrearPrompt = () => {
                     <p>Cargar otro SpreadSheet</p>
                   </TooltipContent>
                 </Tooltip>
+                <Select onValueChange={seleccionDeHoja}>
+                  <SelectTrigger className="w-11">
+                    <SelectValue placeholder="Selecciona una Hoja" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                    {hojasSheet.map((hoja, index) => (
+                      <SelectItem key={index} value={hoja}>
+                        {hoja}
+                      </SelectItem>
+                    ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <div>
@@ -223,74 +236,17 @@ const CrearPrompt = () => {
               </TooltipProvider>
           </div>
           <div className= {`align-middle w-full mx-auto flex items-center justify-center gap-1 p-4 h-auto ${!sheetCargado ? 'hidden' : ''}`}>
-            <Label className="mr-2">Seleccionar una Hoja:</Label>
-            <Select onValueChange={seleccionDeHoja}>
-              <SelectTrigger className="w-fit">
-                <SelectValue placeholder="Selecciona una Hoja" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                {hojasSheet.map((hoja, index) => (
-                  <SelectItem key={index} value={hoja}>
-                    {hoja}
-                  </SelectItem>
-                ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
           </div>
         </div>
 
       <div className="w-full sm:max-w-3xl mx-auto items-center">
-        <div className="flex flex-col w-full h-screen max-w-[1000px] overflow-x-auto items-center justify-center gap-1 bg-white dark:bg-gray-900"
+        <div className="flex flex-col w-full h-screen max-w-[3000px] overflow-x-auto items-center justify-center gap-1 bg-white dark:bg-gray-900"
           style={{ maxHeight: "calc(100vh - 175px)", whiteSpace: "nowrap"}}>
           <div id="chat" className="overflow-y-auto h-auto bg-white dark:bg-gray-900 w-full flex-1">
             {sheetCargado && datosSheet.length > 0 && (
               <TableComponent data={datosSheet} />
             )}
           </div>
-        </div>
-        <div className='fixed bottom-0 align-middle w-full max-w-3xl mx-auto flex items-center justify-center gap-1 p-4 bg-white dark:bg-gray-900 z-30'>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div>
-                  <FiInfo className='text-[24px] text-gray-600 dark:text-gray-500'/>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Tu mensaje va a ser anidado a tu set de datos de Google Sheets.</p>
-              </TooltipContent>
-            </Tooltip>
-            <div className=' w-full rounded-[30px] bg-gray-50 dark:bg-gray-800 border border-gray-400 dark:border-gray-600'>
-              <Textarea style={{ fontSize: '16px' }} className="resize-none h-1 ml-4 max-w-[600px] p-[18px] sm:p-[20px] text-gray-600 dark:text-gray-300 border-none"
-                id="chatbot"
-                placeholder="Ingrese su Consulta" 
-                value={mensaje}
-                onChange={(e) => setMensaje(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault(); // Evita que se agregue una nueva línea en el textarea
-                    enviarConsulta();
-                  }
-                }}
-              />
-            </div>              
-            <Tooltip>
-              <TooltipTrigger asChild>
-              <div>
-                <Button className="max-w-28 align-middle rounded-full button_gradient" 
-                disabled={!sheetCargado || !mensaje.trim()}
-                onClick={enviarConsulta}>
-                  <LuSendHorizonal />
-                </Button>
-              </div>
-              </TooltipTrigger>
-              <TooltipContent>
-              <p>{!sheetCargado ? 'Cargue primero el Google Sheet' : !mensaje.trim() ? 'La consulta está vacía' : 'Enviar'}</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
         </div>
       </div>
     </section>
