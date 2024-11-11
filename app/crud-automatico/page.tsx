@@ -35,7 +35,7 @@ type DataItem = Record<string, string | number | boolean>;
 const TableComponent = <T extends DataItem>({ data }: { data: T[] }) => {
   if (!data || data.length === 0) return null;
 
-  const headers = Object.keys(data[0]);
+  const headers = [...Object.keys(data[0]), "Opciones"];
   const [titleRow, ...dataRows] = data;
 
   return (
@@ -43,7 +43,7 @@ const TableComponent = <T extends DataItem>({ data }: { data: T[] }) => {
       <TableHeader>
         <TableRow>
           {headers.map((header, index) => (
-            <TableHead key={index}>{titleRow[header]}</TableHead>
+            <TableHead key={index}>{header}</TableHead>
           ))}
         </TableRow>
       </TableHeader>
@@ -51,7 +51,13 @@ const TableComponent = <T extends DataItem>({ data }: { data: T[] }) => {
         {dataRows.map((row, rowIndex) => (
           <TableRow key={rowIndex}>
             {headers.map((header, cellIndex) => (
-              <TableCell key={cellIndex}>{String(row[header])}</TableCell>
+              <TableCell key={cellIndex}>
+                {header === "Opciones" ? (
+                  <Button variant="outline" size="sm">Editar</Button>
+                ) : (
+                  String(row[header])
+                )}
+              </TableCell>
             ))}
           </TableRow>
         ))}
@@ -60,7 +66,7 @@ const TableComponent = <T extends DataItem>({ data }: { data: T[] }) => {
   );
 };
 
-const CrearPrompt = () => {
+const CrudAuto = () => {
   const [mensaje, setMensaje] = useState('');
   const [sheetId, setSheetId] = useState('');
   const [sheetCargado, setSheetCargado] = useState(false);
@@ -217,7 +223,12 @@ const CrearPrompt = () => {
         <div className="flex flex-col w-full h-screen max-w-[3000px] overflow-x-auto items-center justify-center gap-1 bg-white dark:bg-gray-900" style={{ maxHeight: "calc(100vh - 56px)" }}>
           <div id="chat" className="overflow-y-auto h-auto bg-white dark:bg-gray-900 w-full flex-1">
             {sheetCargado && datosSheet.length > 0 && (
-              <TableComponent data={datosSheet} />
+              <>
+                <TableComponent data={datosSheet} />
+                <div className="mt-4 flex justify-end">
+                  <Button variant="outline">Agregar</Button>
+                </div>
+              </>
             )}
           </div>
         </div>
@@ -226,4 +237,4 @@ const CrearPrompt = () => {
   )
 }
 
-export default CrearPrompt
+export default CrudAuto
