@@ -9,9 +9,9 @@ export default function Home() {
   if (isLoading) return <div className="flex justify-center items-center min-h-screen">Loading...</div>;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-100 dark:bg-gray-900">
+    <div className="flex flex-col items-center justify-center min-h-screen p-8 dark:bg-gray-900">
       <main className="flex flex-col items-center gap-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200">SetIA</h1>
+        <h1 className="head_gradient">SetIA</h1>
         <p className="text-xl text-gray-600 dark:text-gray-400">Manejo Inteligente de Datos</p>
 
         {!user ? (
