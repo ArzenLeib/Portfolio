@@ -102,7 +102,7 @@ export default function Navbar() {
 
   return (
     <TooltipProvider>
-      <header className="fixed top-0 left-0 w-full h-14 flex items-center bg-white dark:bg-black px-4 md:px-6 backdrop-blur z-50">
+      <header className="fixed top-0 left-0 w-full h-14 flex items-center bg-white dark:bg-gray-700 px-4 md:px-6 backdrop-blur border-b border-gray-200 dark:border-gray-600 z-50">
         <Sheet>
           <Tooltip>
             <TooltipTrigger asChild>
