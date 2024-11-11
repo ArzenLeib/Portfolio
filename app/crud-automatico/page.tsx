@@ -128,35 +128,9 @@ const CrearPrompt = () => {
     }
   };
 
-  const enviarConsulta = async () => {
-    const prompt = mensaje + `\n\n Usando el siguiente dataset:\n${JSON.stringify(datosSheet)} 
-    Genera un dataset en formato JSON usando el mismo formato que envié, no expliques nada más ni des ningún agregado.`;
-
-    try {
-      const response = await fetch('/api/ai-consulta', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              prompt: prompt,
-              spreadsheetId: sheetId,
-          }),
-      });
-
-      if (!response.ok) {
-          throw new Error('Error al enviar la consulta');
-      }
-
-      const data = await response.json();
-    } catch (error) {
-      console.error('Error al enviar la consulta:', error);
-    }
-  };
-
   return (
     <section className="w-full max-w-full flex-start flex-col sm:flex-row dark:bg-gray-900 mt-14">
-      <div className="flex flex-start flex-col w-full sm:max-w-80 h-auto sm:h-screen ml-0 items-start justify-start bg-gray-100 dark:bg-gray-950">
+      <div className="flex flex-start flex-col w-full sm:max-w-80 h-auto sm:h-screen ml-0 items-start justify-start bg-gray-100 dark:bg-gray-950" style={{ maxHeight: "calc(100vh - 56px)" }}>
         <div className='sm:ml-5 sm:flex flex-col hidden '>
           <h1 className='head_text text-left mb-2'> 
             <span className='head_gradient'>
@@ -208,7 +182,7 @@ const CrearPrompt = () => {
                   </TooltipContent>
                 </Tooltip>
                 <Select onValueChange={seleccionDeHoja}>
-                  <SelectTrigger className="w-11">
+                  <SelectTrigger className="w-1">
                     <SelectValue placeholder="Selecciona una Hoja" />
                   </SelectTrigger>
                   <SelectContent>
@@ -240,7 +214,7 @@ const CrearPrompt = () => {
         </div>
 
       <div className="w-full sm:max-w-3xl mx-auto items-center">
-        <div className="flex flex-col w-full h-screen max-w-[3000px] overflow-x-auto items-center justify-center gap-1 bg-white dark:bg-gray-900">
+        <div className="flex flex-col w-full h-screen max-w-[3000px] overflow-x-auto items-center justify-center gap-1 bg-white dark:bg-gray-900" style={{ maxHeight: "calc(100vh - 56px)" }}>
           <div id="chat" className="overflow-y-auto h-auto bg-white dark:bg-gray-900 w-full flex-1">
             {sheetCargado && datosSheet.length > 0 && (
               <TableComponent data={datosSheet} />
