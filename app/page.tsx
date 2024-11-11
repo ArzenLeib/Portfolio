@@ -11,8 +11,8 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-100 dark:bg-gray-900">
       <main className="flex flex-col items-center gap-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200">Welcome to SetIA</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-400">Your intelligent data management solution</p>
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200">SetIA</h1>
+        <p className="text-xl text-gray-600 dark:text-gray-400">Manejo Inteligente de Datos</p>
 
         {!user ? (
           <a
@@ -23,14 +23,8 @@ export default function Home() {
           </a>
         ) : (
           <div className="flex flex-col items-center gap-4">
-            <Image
-              src={user.picture ?? "https://via.placeholder.com/100"}
-              alt={user.name ?? "User"}
-              width={100}
-              height={100}
-              className="rounded-full"
-            />
-            <p className="text-xl font-semibold text-gray-800 dark:text-gray-200">Welcome, {user.name}!</p>
+            <img src={user.picture ?? ""} className='w-24 h-24'  alt="" />
+            <p className="text-xl font-semibold text-gray-800 dark:text-gray-200">Bienvenido, {user.name}!</p>
             <a
               className="rounded-full bg-red-600 text-white px-6 py-3 text-lg font-semibold hover:bg-red-700 transition-colors"
               href="/api/auth/logout"
