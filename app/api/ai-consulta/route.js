@@ -17,6 +17,7 @@ export async function POST(request) {
 
         text = text.replace(/(^```|```$)/g, '').trim();
         text = text.replace(/^json/, '');
+        text = text.replace(/[“”]/g, '"');
         console.log(text);
 
         const textoParseado = JSON.parse(text);
@@ -28,7 +29,7 @@ export async function POST(request) {
         TituloHoja = TituloHoja.replace(/(\n)/, '');
         const TituloHojaGeneradoPorIA = `${TituloHoja} ${new Date().toDateString()} ${new Date().toLocaleTimeString()}`;
 
-        const addSheetResponse = await fetch(`${process.env.BASE_URL}/api/generar-dataset`, {
+        const addSheetResponse = await fetch(`${process.env.AUTH0_BASE_URL}/api/generar-dataset`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

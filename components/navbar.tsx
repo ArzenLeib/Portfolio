@@ -1,17 +1,33 @@
 "use client"
 
 import { type SVGProps } from "react"
+import { PiShareNetworkLight } from "react-icons/pi"
+import { CiLogin } from "react-icons/ci";
+import { CiLogout } from "react-icons/ci";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
-import { PiShareNetworkLight } from "react-icons/pi";
 import { Button } from "@/components/ui/button"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/ui/avatar"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { useTheme } from "next-themes"
+import { useUser } from "@auth0/nextjs-auth0/client"
 
 function MenuIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -82,6 +98,7 @@ function MoonIcon(props: SVGProps<SVGSVGElement>) {
 
 export default function Navbar() {
   const { setTheme, theme } = useTheme()
+  const { user, isLoading } = useUser()
 
   return (
     <TooltipProvider>
@@ -107,28 +124,51 @@ export default function Navbar() {
             </Link>
             <nav className="mt-6">
               <ul className="space-y-4">
+                {!isLoading && user && (
+                  <>
+                    <li>
+                      <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
+                        About
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
+                        Services
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
+                        Contact
+                      </Link>
+                    </li>
+                  </>
+                )}
                 <li>
-                  <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
-                    About
-                  </Link>
+                  {!isLoading && (
+                    <Link
+                      href={user ? "/api/auth/logout" : "/api/auth/login"}
+                      className="text-lg font-semibold hover:underline"
+                      prefetch={false}
+                    >
+                      {user ? "Log Out" : "Log In"}
+                    </Link>
+                  )}
                 </li>
-                <li>
-                  <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
-                    Services
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-lg font-semibold hover:underline" prefetch={false}>
-                    Contact
-                  </Link>
-                </li>
+                {user && (
+                  <li>
+                    <Avatar>
+                      <AvatarImage src={user.picture ?? ""} alt="" />
+                      <AvatarFallback>{user.nickname}</AvatarFallback>
+                    </Avatar>
+                  </li>
+                )}
               </ul>
             </nav>
           </SheetContent>
         </Sheet>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Link href="#" className="mr-6 hidden items-center lg:flex font-mono text-lg font-medium"  prefetch={false}>
+            <Link href="/" className="mr-6 hidden items-center lg:flex font-mono text-lg font-medium" prefetch={false}>
               <PiShareNetworkLight className="h-8 w-8" />
               <span className="ml-2 text-xl">SetIA</span>
             </Link>
@@ -137,28 +177,66 @@ export default function Navbar() {
             <p>Trabajo Práctico 4 Coloquio Redes Y Comunicaciones</p>
           </TooltipContent>
         </Tooltip>
-        <nav className="ml-auto hidden lg:flex gap-6">
-          <Link
-            href="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            About
-          </Link>
-          <Link
-            href="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            Services
-          </Link>
-          <Link
-            href="#"
-            className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
-            prefetch={false}
-          >
-            Contact
-          </Link>
+        <nav className="ml-auto hidden lg:flex items-center gap-6">
+          {!isLoading && user && (
+            <>
+              <Link
+                href="#"
+                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+                prefetch={false}
+              >
+                About
+              </Link>
+              <Link
+                href="#"
+                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+                prefetch={false}
+              >
+                Services
+              </Link>
+              <Link
+                href="#"
+                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+                prefetch={false}
+              >
+                Contact
+              </Link>
+            </>
+          )}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+                <Avatar>
+                  <AvatarImage src={user?.picture ?? ""} alt="" />
+                  <AvatarFallback>{user?.nickname}</AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56" align="end" forceMount>
+              <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                  <p className="text-sm font-medium leading-none">{user?.name}</p>
+                  <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+              <Link href={user ? "/api/auth/logout" : "/api/auth/login"}>
+                {user ? (
+                  <>
+                    <CiLogout className="mr-2 font-bold" />
+                    Log out
+                  </>
+                ) : (
+                  <>
+                    <CiLogin className="mr-2 font-bold" />
+                    Log in
+                  </>
+                )}
+              </Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </nav>
         <Tooltip>
           <TooltipTrigger asChild>
