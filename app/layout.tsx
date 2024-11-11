@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   title: "SetIA",
   description: "Generación y Modificación de DataSets Inteligente.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/setia.png",
   },
 };
 
