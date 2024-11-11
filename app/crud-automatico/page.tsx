@@ -227,9 +227,6 @@ const CrudAuto = () => {
             {sheetCargado && datosSheet.length > 0 && (
               <>
                 <TableComponent data={datosSheet} />
-                <div className="mt-4 flex justify-end">
-                  <Button variant="outline">Agregar</Button>
-                </div>
               </>
             )}
           </div>
