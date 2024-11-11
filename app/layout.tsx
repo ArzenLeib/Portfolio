@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from '@/components/navbar'
 import { ThemeProvider } from './providers'
 import { UserProvider } from '@auth0/nextjs-auth0/client';
+import { PiShareNetworkLight } from "react-icons/pi";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,6 +20,9 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "SetIA",
   description: "Generación y Modificación de DataSets Inteligente.",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
