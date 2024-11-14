@@ -285,6 +285,7 @@ export default function Component() {
                           <div className="flex items-center">
                             <Code className="h-6 w-6 mr-2 text-primary" />
                             <CardTitle>{repo.name}</CardTitle>
+                            <p className='ml-3 text-sm font-thin'>Creación {new Date(repo.creacionFecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
                           </div>
                           <Button
                             variant="ghost"
