@@ -432,10 +432,6 @@ export default function Component() {
                 <a href='https://github.com/ArzenLeib' target="_blank" rel="noopener noreferrer"><Github className="h-5 w-5"/></a>
                 <span className="sr-only">GitHub</span>
               </Button>
-              <Button variant="ghost" size="icon" className="hover:text-primary transition-colors duration-200">
-                <Mail className="h-5 w-5" />
-                <span className="sr-only">Email</span>
-              </Button>
             </div>
           </div>
         </footer>
