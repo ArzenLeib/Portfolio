@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, experimental_taintUniqueValue } from 'react'
 import { Moon, Sun, Github, Linkedin, Mail, Code, Palette, Globe, Terminal, Star, Send, Loader2, ChevronDown, ChevronUp } from 'lucide-react'
 import { RxVercelLogo } from "react-icons/rx";
 import { DiMsqlServer } from "react-icons/di";
 import { RiNextjsFill } from "react-icons/ri";
 import { FaReact, FaAngular, FaJs, FaCss3Alt, FaNodeJs, FaHtml5, FaWindows   } from 'react-icons/fa';
-import { SiCsharp, SiTypescript, SiTailwindcss, SiMongodb, SiShadcnui  } from "react-icons/si";
+import { SiCsharp, SiTypescript, SiTailwindcss, SiMongodb, SiShadcnui, SiSocketdotio, SiGooglesheets, SiExpress } from "react-icons/si";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -42,9 +42,12 @@ const iconosLenguaje: Record<string, JSX.Element> = {
   css:  <FaCss3Alt className="h-5 w-5 text-blue-600" />,
   tailwind: <SiTailwindcss className="h-5 w-5 text-blue-600" />,
   nodejs: <FaNodeJs className="h-5 w-5 text-green-600" />,
+  express: <SiExpress className="h-5 w-5" />,
   mongodb: <SiMongodb className="h-5 w-5 text-green-600" />,
   nextjs: <RiNextjsFill className="h-5 w-5"/>,
-  "shadcn-ui": <SiShadcnui className="h-4 w-4"/>
+  "shadcn-ui": <SiShadcnui className="h-4 w-4"/>,
+  "google-sheets": <SiGooglesheets className="h-5 w-5 text-green-500"/>,
+  "google-sheets-api": <SiGooglesheets className="h-5 w-5 text-green-500"/>
 }; 
 
 export default function Component() {
@@ -145,19 +148,38 @@ export default function Component() {
   const habilidades = [
     { name: 'Winforms', level: 'Experto', stars: 5, icon: <FaWindows /> },
     { name: 'React', level: 'Intermedio', stars: 3, icon: <FaReact/> },
-    { name: 'Next.Js', level: 'principiante', stars: 2, icon: <SiCsharp/> },
+    { name: 'Next.Js', level: 'principiante', stars: 2, icon: <RiNextjsFill/> },
     { name: 'Angular', level: 'Intermedio', stars: 3, icon: <FaAngular/> },
     { name: 'TypeScript', level: 'Intermedio', stars: 3, icon: <SiTypescript/> },
     { name: 'JavaScript', level: 'Avanzado', stars: 4, icon: <FaJs/> },
     { name: 'C#', level: 'Avanzado', stars: 4, icon: <SiCsharp/> },
     { name: 'SQL Server', level: 'Avanzado', stars: 4, icon: <DiMsqlServer/> },
     { name: 'MongoDB', level: 'Intermedio', stars: 3, icon: <SiMongodb/> },
+    { name: 'Socket.IO', level: 'Avanzado', stars: 4, icon: <SiSocketdotio/> }
   ]
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    console.log('Formulario enviado')
-  }
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    fetch("https://formsubmit.co/ajax/arzenoeugenio@gmail.com", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          console.log("Mensaje enviado con éxito");
+          // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito
+        } else {
+          console.error("Hubo un error al enviar el mensaje");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
 
   return (
     <div className={`min-h-screen ${darkMode ? 'dark' : ''}`}>
@@ -271,7 +293,7 @@ export default function Component() {
             ) : error ? (
               <div className="text-center text-red-500">{error}</div>
             ) : (
-              <div className="grid grid-cols-2 gap-6 max-w-6xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-6xl">
                 {repos.filter((repo) => repo.name !== 'Portfolio').map((repo) => (
                   <motion.div
                     key={repo.id}
@@ -284,8 +306,8 @@ export default function Component() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
                             <Code className="h-6 w-6 mr-2 text-primary" />
-                            <CardTitle>{repo.name}</CardTitle>
-                            <p className='ml-3 text-sm font-thin'>Creación {new Date(repo.creacionFecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
+                            <CardTitle className='text-base'>{repo.name}</CardTitle>
+                            <p className='ml-3 sm:text-sm hidden sm:flex font-thin'>Creación {new Date(repo.creacionFecha).toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' })}</p>
                           </div>
                           <Button
                             variant="ghost"
@@ -373,11 +395,7 @@ export default function Component() {
                 <CardDescription>Completa el formulario a continuación y me pondré en contacto contigo lo antes posible.</CardDescription>
               </CardHeader>
               <CardContent>
-                <form 
-                  action="https://formsubmit.co/arzenoeugenio@gmail.com" 
-                  method="POST" 
-                  className="space-y-4"
-                >
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-1">
                       Nombre
