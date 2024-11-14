@@ -117,8 +117,8 @@ export default function Component() {
             let readme = ''
             if (readmeResponse.ok) {
               const readmeData = await readmeResponse.json()
-              const binaryString = Uint8Array.from(atob(readmeData.content), (c) => c.charCodeAt(0))
-              const decodedContent = new TextDecoder('utf-8').decode(binaryString)
+              const Base64Decrip = Uint8Array.from(atob(readmeData.content), (c) => c.charCodeAt(0))
+              const decodedContent = new TextDecoder('utf-8').decode(Base64Decrip)
               readme = decodedContent
             }
             
@@ -262,16 +262,16 @@ export default function Component() {
             </div>
           </section>
 
-          <section className="py-20" aria-labelledby="projects-title">
+          <section className="py-20 flex flex-col items-center" aria-labelledby="projects-title">
             <h2 id="projects-title" className="text-3xl font-bold mb-8 text-center">Mis Proyectos</h2>
             {isLoading ? (
               <div className="flex justify-center items-center h-64">
-                <Loader2 className="h-8 w-8 animate-spin" />
+                <Loader2 className="h-8 w-8 animate-spin"/>
               </div>
             ) : error ? (
               <div className="text-center text-red-500">{error}</div>
             ) : (
-              <div className="grid grid-cols-1 gap-6">
+              <div className="grid grid-cols-2 gap-6 max-w-6xl">
                 {repos.filter((repo) => repo.name !== 'Portfolio').map((repo) => (
                   <motion.div
                     key={repo.id}
@@ -373,24 +373,28 @@ export default function Component() {
                 <CardDescription>Completa el formulario a continuación y me pondré en contacto contigo lo antes posible.</CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form 
+                  action="https://formsubmit.co/arzenoeugenio@gmail.com" 
+                  method="POST" 
+                  className="space-y-4"
+                >
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-1">
                       Nombre
                     </label>
-                    <Input id="name" placeholder="Tu nombre" required />
+                    <Input id="name" name="name" placeholder="Tu nombre" required />
                   </div>
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-1">
                       Email
                     </label>
-                    <Input id="email" type="email" placeholder="tu@email.com" required />
+                    <Input id="email" name="email" type="email" placeholder="tu@email.com" required />
                   </div>
                   <div>
                     <label htmlFor="message" className="block text-sm font-medium mb-1">
                       Mensaje
                     </label>
-                    <Textarea id="message" placeholder="Tu mensaje" required />
+                    <Textarea id="message" name="message" placeholder="Tu mensaje" required />
                   </div>
                   <Button type="submit" className="w-full">
                     Enviar mensaje
