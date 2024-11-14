@@ -18,10 +18,10 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "SetIA",
-  description: "Generación y Modificación de DataSets Inteligente.",
+  title: "Portfolio",
+  description: "Eugenio Arzeno, desarrollador Full Stack Desktop y Web",
   icons: {
-    icon: "/setia.png",
+    icon: "favicon.ico?v=1",
   },
 };
 
@@ -41,10 +41,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <UserProvider>
-            <Navbar />
-            {children}
-          </UserProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>
