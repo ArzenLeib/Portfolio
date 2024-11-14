@@ -5,7 +5,7 @@ import { Moon, Sun, Github, Linkedin, Mail, Code, Palette, Globe, Terminal, Star
 import { RxVercelLogo } from "react-icons/rx";
 import { DiMsqlServer } from "react-icons/di";
 import { RiNextjsFill } from "react-icons/ri";
-import { FaReact, FaAngular, FaJs, FaCss3Alt, FaNodeJs, FaHtml5, FaWindows   } from 'react-icons/fa';
+import { FaReact, FaAngular, FaJs, FaCss3Alt, FaNodeJs, FaHtml5, FaWindows } from 'react-icons/fa';
 import { SiCsharp, SiTypescript, SiTailwindcss, SiMongodb, SiShadcnui, SiSocketdotio, SiGooglesheets, SiExpress } from "react-icons/si";
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
@@ -148,14 +148,17 @@ export default function Component() {
   const habilidades = [
     { name: 'Winforms', level: 'Experto', stars: 5, icon: <FaWindows /> },
     { name: 'React', level: 'Intermedio', stars: 3, icon: <FaReact/> },
-    { name: 'Next.Js', level: 'principiante', stars: 2, icon: <RiNextjsFill/> },
+    { name: 'Next.Js', level: 'Principiante', stars: 2, icon: <RiNextjsFill/> },
     { name: 'Angular', level: 'Intermedio', stars: 3, icon: <FaAngular/> },
     { name: 'TypeScript', level: 'Intermedio', stars: 3, icon: <SiTypescript/> },
     { name: 'JavaScript', level: 'Avanzado', stars: 4, icon: <FaJs/> },
     { name: 'C#', level: 'Avanzado', stars: 4, icon: <SiCsharp/> },
+    { name: 'NodeJs', level: 'Avanzado', stars: 4, icon: <FaNodeJs/> },
     { name: 'SQL Server', level: 'Avanzado', stars: 4, icon: <DiMsqlServer/> },
     { name: 'MongoDB', level: 'Intermedio', stars: 3, icon: <SiMongodb/> },
-    { name: 'Socket.IO', level: 'Avanzado', stars: 4, icon: <SiSocketdotio/> }
+    { name: 'Socket.IO', level: 'Avanzado', stars: 4, icon: <SiSocketdotio/> },
+    { name: 'CSS', level: 'Intermedio', stars: 3, icon: <FaCss3Alt/> },
+    { name: 'Tailwind Css', level: 'Intermedio', stars: 3, icon: <SiTailwindcss/> }
   ]
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -243,7 +246,7 @@ export default function Component() {
             </motion.div>
           </div>          
 
-          <section className="py-20" aria-labelledby="skills-title">
+          <section className="py-20 flex flex-col items-center" aria-labelledby="skills-title">
             <motion.div initial={{ y: 50, opacity: 0 }}animate={{ y: 0, opacity: 1 }}transition={{ duration: 0.5}}>
               <h2 id="skills-title" className="text-3xl font-bold mb-8 text-center">Mis Habilidades</h2>
             </motion.div>
