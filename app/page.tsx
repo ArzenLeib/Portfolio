@@ -185,7 +185,7 @@ export default function Component() {
               transition={{ duration: 0.5 }}
             >
               <div className='text-left w-fit'>
-                <h2 className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary leading-normal">
+                <h2 className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary-300 leading-normal">
                   ¡Hola! Soy Eugenio Arzeno
                 </h2>
                 <div className="text-2xl mb-8">
@@ -210,10 +210,10 @@ export default function Component() {
               </CardHeader>
               <CardContent>
                 <div className="flex justify-center">
-                  <p className="text-lg text-center text-gray-400 max-w-3xl">
-                    Soy un desarrollador apasionado por la tecnología y la programación. Desde que comencé a aprender a programar, tengo un interés por la cración de aplicaciones web. Mi objetivo es crear experiencias de usuario agradables y optimizar el rendimiento de las aplicaciones.
+                  <p className="text-lg text-center text-gray-600 dark:text-gray-300 max-w-3xl">
+                    Soy un analista y desarrollador apasionado por la tecnología y la programación. Desde que comencé a aprender a programar, tengo un interés por la cración de aplicaciones web. Mi objetivo es crear experiencias de usuario agradables y optimizar el rendimiento de las aplicaciones.
                     <br /><br />
-                    Me encanta resolver problemas complejos y siempre estoy en la búsqueda de nuevas formas de mejorar mis habilidades. En mi tiempo libre, disfruto explorando nuevas tecnologías, trabajando en proyectos personales que me desafíen a aprender algo nuevo y hacer deporte.
+                    Me encanta resolver problemas de lógica y siempre estoy en la búsqueda de nuevas formas de mejorar mis habilidades. En mi tiempo libre, disfruto explorando nuevas tecnologías, trabajando en proyectos personales que me desafíen a aprender algo nuevo y hacer deporte.
                   </p>
                 </div>
               </CardContent>
@@ -272,7 +272,7 @@ export default function Component() {
               <div className="text-center text-red-500">{error}</div>
             ) : (
               <div className="grid grid-cols-1 gap-6">
-                {repos.map((repo) => (
+                {repos.filter((repo) => repo.name !== 'Portfolio').map((repo) => (
                   <motion.div
                     key={repo.id}
                     initial={{ y: 50, opacity: 0 }}
